@@ -25,30 +25,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class Page3 extends Activity {
-//    LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-//    String provider = locationManager.getBestProvider(new Criteria(), true);
-//
-//    Location locations = locationManager.getLastKnownLocation(provider);
-//    List<String> providerList = locationManager.getAllProviders();
-//    if(locations!=null && null!=providerList && providerList.size()>0){
-//        double longitude = locations.getLongitude();
-//        double latitude = locations.getLatitude();
-//        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-//        try {
-//            List<Address> listAddresses = geocoder.getFromLocation(latitude, longitude, 1);
-//            if(null!=listAddresses&&listAddresses.size()>0){
-//                String _Location = listAddresses.get(0).getAddressLine(0);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
-
-    float latitude;
-    float longitude;
-
+    double latitude; // hide your data members from the client
+    double longitude;
+    String address;
     /**
      * Called when the activity is first created.
      */
@@ -60,6 +39,10 @@ public class Page3 extends Activity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
       /* Use the LocationManager class to obtain GPS locations */
+        method1();
+    }
+
+    public void method1() {
         LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener mlocListener = new MyLocationListener();
@@ -76,24 +59,27 @@ public class Page3 extends Activity {
         public void onLocationChanged(Location loc) {
 
             double a = loc.getLatitude();
-            Double b = loc.getLongitude();
+            latitude = a;
 
+            double b = loc.getLongitude();
+            longitude = b;
             String Text = "My current location is: " +
                     "Latitud = " + loc.getLatitude() +
                     "Longitud = " + loc.getLongitude();
 
 //            Toast.makeText( getApplicationContext(), Text, Toast.LENGTH_SHORT).show();
             String x = getCompleteAddressString(a, b);
+            address=x;
 //            Toast.makeText(getApplicationContext(),x,Toast.LENGTH_SHORT).show();
             TextView text = (TextView) findViewById(R.id.tv_address);
             text.setText(x);
-            url_get(a,b);
+            //url_get(a, b);
         }
 
-        void url_get(double lati,double longi) {
+        void url_get(double lati, double longi) {
             URL url = null;
             try {
-                url = new URL("https://maps.googleapis.com/maps/api/place/search/json?&location="+String.valueOf(lati)+","+String.valueOf(longi)+"&radius=1000&types=hospital&sensor=true&key=AIzaSyBta3HizpdwhSCFHhvF4jx0JDKdI2YSojU");
+                url = new URL("https://maps.googleapis.com/maps/api/place/search/json?&location=" + String.valueOf(lati) + "," + String.valueOf(longi) + "&radius=1000&types=hospital&sensor=true&key= AIzaSyA7Aiy4Dl1Bhh1WsZkhm7Rd13U9IjC-t_I");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -107,7 +93,7 @@ public class Page3 extends Activity {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 TextView json = (TextView) findViewById(R.id.json3);
                 String theString = IOUtils.toString(in, "UTF-8");
-                json.setText(theString);
+                json.setText(lati + "");
                 //System.out.println(in);
             } catch (IOException e) {
                 e.printStackTrace();

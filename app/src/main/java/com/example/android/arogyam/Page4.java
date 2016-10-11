@@ -47,6 +47,7 @@ public class Page4 extends Activity {
             json.setText(theString);
             //System.out.println(in);
         } catch (IOException e) {
+
             e.printStackTrace();
         } finally {
             urlConnection.disconnect();

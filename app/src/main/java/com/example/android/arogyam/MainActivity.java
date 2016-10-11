@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         if (settings.getString("logged", "").toString().equals("logged")) {
-            Intent intent = new Intent(MainActivity.this, Page3.class);
+            Intent intent = new Intent(MainActivity.this, Page2.class);
             startActivity(intent);
             finish();
         }
@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
                 editor.putString("logged", "logged");
                 editor.commit();
 
-                Intent intent = new Intent(MainActivity.this, Page3.class);
+                Intent intent = new Intent(MainActivity.this, Page2.class);
                 startActivity(intent);
                 finish();
             }
